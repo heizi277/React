@@ -1,53 +1,26 @@
-import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { testBackendConnection } from './services/api'
+import { Routes, Route } from 'react-router-dom';
+import { Box, CssBaseline } from '@mui/material';
+import { NavigationMenu } from './components/Nav/index';
+import { TodoApp } from './components/ToDoApp/index';
+import { Home } from './components/Home/index';
+import { Contact } from './components/Contact/index';
+import './App.css';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [backendMessage, setBackendMessage] = useState('')
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    testBackendConnection()
-      .then(data => setBackendMessage(data.message))
-      .catch(err => setError(err.message))
-  }, [])
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      {backendMessage && (
-        <div className="backend-message">
-          Backend says: {backendMessage}
-        </div>
-      )}
-      {error && (
-        <div className="error-message">
-          Error: {error}
-        </div>
-      )}
+      <CssBaseline />
+      <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100' }}>
+        <NavigationMenu />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/todo" element={<TodoApp />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </Box>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
